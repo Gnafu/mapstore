@@ -168,7 +168,7 @@ gxp.widgets.form.BufferFieldset = Ext.extend(Ext.form.FieldSet,  {
 		});
 		
 	    this.compositeField = new Ext.form.CompositeField({
-		    fieldLabel: this.bufferFieldLabel,
+		    fieldLabel: this.bufferFieldLabel + " ("+this.map.units+")",
 			items: [
 				this.bufferField,
 				{

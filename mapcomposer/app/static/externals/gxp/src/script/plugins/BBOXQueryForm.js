@@ -375,7 +375,8 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
                 xtype: "fieldset",
                 ref: "attributeFieldset",
                 title: this.queryByAttributesText,
-                checkboxToggle: true
+                checkboxToggle: true,
+                collapsed : true
             }],
             bbar: ["->", {   
                 scope: this,    
@@ -611,7 +612,7 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
 				queryForm.bufferFieldset.disable();
 				queryForm.bufferFieldset.resetPointSelection();
 				
-                queryForm.attributeFieldset.expand();			
+                //queryForm.attributeFieldset.expand();			
 				methodSelection.setValue('bbox');
 				
 				if (me.draw) {me.draw.deactivate();};

@@ -275,10 +275,10 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
                             }
             
                             var outputValue = c.getValue();
-                            if (me.draw) {me.draw.deactivate()};
-                            if (me.drawings) {me.drawings.destroyFeatures()};
-                            if (me.filterCircle) {me.filterCircle = new OpenLayers.Filter.Spatial({})};
-                            if (me.filterPolygon) {me.filterPolygon = new OpenLayers.Filter.Spatial({})};
+                            if (me.draw) {me.draw.deactivate();};
+                            if (me.drawings) {me.drawings.destroyFeatures();};
+                            if (me.filterCircle) {me.filterCircle = new OpenLayers.Filter.Spatial({});};
+                            if (me.filterPolygon) {me.filterPolygon = new OpenLayers.Filter.Spatial({});};
                             
                             if(outputValue == 'circle'){
                                 queryForm.spatialFieldset.hide();
@@ -393,10 +393,10 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
                     var methodSelection = this.output[0].outputType;
                     methodSelection.setValue('bbox');
 					
-                    if (me.draw) {me.draw.deactivate()};
-                    if (me.drawings) {me.drawings.destroyFeatures()};
-                    if (me.filterCircle) {me.filterCircle = new OpenLayers.Filter.Spatial({})};
-                    if (me.filterPolygon) {me.filterPolygon = new OpenLayers.Filter.Spatial({})};    
+                    if (me.draw) {me.draw.deactivate();};
+                    if (me.drawings) {me.drawings.destroyFeatures();};
+                    if (me.filterCircle) {me.filterCircle = new OpenLayers.Filter.Spatial({});};
+                    if (me.filterPolygon) {me.filterPolygon = new OpenLayers.Filter.Spatial({});};    
 					
                     var ownerCt = this.outputTarget ? queryForm.ownerCt :
                         queryForm.ownerCt.ownerCt;
@@ -614,19 +614,19 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
                 queryForm.attributeFieldset.expand();			
 				methodSelection.setValue('bbox');
 				
-				if (me.draw) {me.draw.deactivate()};
-				if (me.drawings) {me.drawings.destroyFeatures()};
-				if (me.filterCircle) {me.filterCircle = new OpenLayers.Filter.Spatial({})};
-				if (me.filterPolygon) {me.filterPolygon = new OpenLayers.Filter.Spatial({})};   
+				if (me.draw) {me.draw.deactivate();};
+				if (me.drawings) {me.drawings.destroyFeatures();};
+				if (me.filterCircle) {me.filterCircle = new OpenLayers.Filter.Spatial({});};
+				if (me.filterPolygon) {me.filterPolygon = new OpenLayers.Filter.Spatial({});};   
             } else {
                 queryForm.attributeFieldset.rendered && queryForm.attributeFieldset.collapse();
                 queryForm.spatialFieldset.rendered && queryForm.spatialFieldset.hide();
                 methodSelection.setValue('bbox');
 				
-				if (me.draw) {me.draw.deactivate()};
-				if (me.drawings) {me.drawings.destroyFeatures()};
-				if (me.filterCircle) {me.filterCircle = new OpenLayers.Filter.Spatial({})};
-				if (me.filterPolygon) {me.filterPolygon = new OpenLayers.Filter.Spatial({})};  
+				if (me.draw) {me.draw.deactivate();};
+				if (me.drawings) {me.drawings.destroyFeatures();};
+				if (me.filterCircle) {me.filterCircle = new OpenLayers.Filter.Spatial({});};
+				if (me.filterPolygon) {me.filterPolygon = new OpenLayers.Filter.Spatial({});};  
             }
 			
             queryForm.attributeFieldset.doLayout();
@@ -637,12 +637,12 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
         this.addFilterBuilder(this.featureManagerTool,
             this.featureManagerTool.layerRecord, this.featureManagerTool.schema
         );
-        
+        /*
         this.target.mapPanel.map.events.register("moveend", this, function() {
             this.bboxFielset.removeBBOXLayer();
             this.bboxFielset.setBBOX(this.target.mapPanel.map.getExtent())
         });
-        
+        */
         this.featureManagerTool.on({
             "beforequery": function() {
                 new Ext.LoadMask(queryForm.getEl(), {

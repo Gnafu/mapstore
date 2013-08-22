@@ -359,7 +359,7 @@ GeoExt.Lang.add("it", {
         queryActionText: "Interrogazione",
         queryMenuText: "Interrogazione livello",
         queryActionTip: "Interrogazione il livello selezionato",
-        queryByLocationText: "Regione di Interesse",
+        queryByLocationText: "Bounding Box",
         currentTextText: "Estensione corrente",
         queryByAttributesText: "Interrogazione per attributo",
         queryMsg: "Interrogazione in corso...",
@@ -379,8 +379,8 @@ GeoExt.Lang.add("it", {
         comboSelectionMethodLabel: "Selezione",
         comboPolygonSelection: 'Poligono',
         comboCircleSelection: 'Cerchio',
-        comboBBOXSelection: 'BBOX',
-		errorBBOXText: "Il BBOX selezionato è invalido!",
+        comboBBOXSelection: 'Bounding Box',
+		errorBBOXText: "Il BBox selezionato è invalido!",
         errorDrawPolygonText: "Si deve disegnare il Poligono",
         errorDrawCircleText: "Si deve disegnare il Cerchio",     
         errorDrawTitle: "Errore nella richiesta",
@@ -402,8 +402,8 @@ GeoExt.Lang.add("it", {
         southLabel:"Sud",
         setAoiText: "ImpostaROI",
         waitEPSGMsg: "Caricamento in corso... Attendere",
-        setAoiTooltip: "Abilita il controllo SetBox per disegnare una ROI (BBOX) sulla mappa",
-        title: "Regione di Interesse"
+        setAoiTooltip: "Abilita il controllo SetBox per disegnare una ROI (BBox) sulla mappa",
+        title: "Bounding Box"
     },
     
     "gxp.FilterBuilder.prototype":{

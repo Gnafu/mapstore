@@ -343,8 +343,8 @@ GeoExt.Lang.add("en", {
         comboSelectionMethodLabel: "Selection",
         comboPolygonSelection: 'Polygon',
         comboCircleSelection: 'Circle',
-        comboBBOXSelection: 'BBOX',
-		errorBBOXText: "The selected BBOX is invalid!",
+        comboBBOXSelection: 'Bounding Box',
+		errorBBOXText: "The selected BBox is invalid!",
         errorDrawPolygonText: "You have to draw a Polygon",
         errorDrawCircleText: "You have to draw a Circle",     
         errorDrawTitle: "Query error",
@@ -366,7 +366,7 @@ GeoExt.Lang.add("en", {
         southLabel:"South",
         setAoiText: "SetROI",
         waitEPSGMsg: "Please Wait...",
-        setAoiTooltip: "Enable the SetBox control to draw a ROI (BBOX) on the map",
+        setAoiTooltip: "Enable the SetBox control to draw a ROI (BBox) on the map",
         title: "Region of Interest"
     },
     

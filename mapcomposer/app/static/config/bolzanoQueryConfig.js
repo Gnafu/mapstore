@@ -270,6 +270,7 @@
 		  "actions": null,
 		  "id": "bboxquery",
 		  "outputConfig":{
+		      "toggleGroup": "toolGroup",
 			  "outputSRS": "EPSG:900913",
 			  "selectStyle":{
 				  "strokeColor": "#FF0000",

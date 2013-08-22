@@ -177,7 +177,7 @@ gxp.widgets.form.BufferFieldset = Ext.extend(Ext.form.FieldSet,  {
                     tooltip: this.draweBufferTooltip,
                     iconCls: this.buttonIconCls,
                     enableToggle: true,
-                    toggleGroup: this.toggleGroup,
+                    //toggleGroup: this.toggleGroup,
                     width:20,
                     listeners: {
 						scope: this, 

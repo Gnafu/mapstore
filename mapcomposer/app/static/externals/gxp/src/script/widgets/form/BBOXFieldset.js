@@ -247,6 +247,7 @@ gxp.form.BBOXFieldset = Ext.extend(Ext.form.FieldSet,  {
             text: this.setAoiText,
             tooltip: this.setAoiTooltip,
             enableToggle: true,
+            toggleGroup: this.toggleGroup,
             iconCls: 'aoi-button',
             height: 50,
             width: 50,
@@ -452,7 +453,7 @@ gxp.form.BBOXFieldset = Ext.extend(Ext.form.FieldSet,  {
             this.southField.getValue(), 
             this.eastField.getValue(), 
             this.northField.getValue()
-            )
+        );
     },
     
     /** private: method[openEpsgWin]

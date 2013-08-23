@@ -133,24 +133,26 @@ gxp.widgets.form.BufferFieldset = Ext.extend(Ext.form.FieldSet,  {
 			outputSRS: this.outputSRS,
 			selectStyle: this.selectStyle,
 			toggleGroup: this.toggleGroup,
-			ref: "coordinatePicker",
-			listeners: {
+			ref: "coordinatePicker"
+			/*
+    		,listeners: {
 				scope: this,
 				update: function(){
 					this.bufferField.enable();
-				},				
-				reset: function(){
+				}
+
+				,reset: function(){
 					this.bufferField.disable();
-					this.bufferField.reset();
 				}
 			}
+			*/
 		});
 	
 		this.bufferField = new Ext.form.NumberField({
 			name: 'buffer',
 			ref: 'bufferField',
 			allowBlank: false,
-			disabled: true,
+			disabled: false,
 			width: 112,
 			flex: 1,
 			minValue: this.minValue,
@@ -158,12 +160,17 @@ gxp.widgets.form.BufferFieldset = Ext.extend(Ext.form.FieldSet,  {
 			enableKeyEvents: true,
 		    decimalPrecision: this.decimalPrecision,
 			allowDecimals: true,
-			hideLabel : false,
-			listeners: {
+			hideLabel : false
+			,listeners: {
 				scope: this,
 				keypress: function(){
 					this.compositeField.clickToggle.toggle(false);
 				}
+				/*
+				,valid: function(){
+				    this.compositeField.clickToggle.toggle(true);
+				}
+				*/
 			}
 		});
 		
@@ -199,12 +206,15 @@ gxp.widgets.form.BufferFieldset = Ext.extend(Ext.form.FieldSet,  {
 									
 									var bounds = regularPolygon.getBounds();
 									this.map.zoomToExtent(bounds);
-								}else{
-									this.compositeField.clickToggle.toggle(false);
-								}
-                            }else{
+								}//else{
+							     this.compositeField.clickToggle.toggle(false);
+								//}
+                            }
+                            /*
+                            else{
 								this.resetBuffer();
                             }
+                            */
                         }
                     }
                 }
@@ -254,6 +264,7 @@ gxp.widgets.form.BufferFieldset = Ext.extend(Ext.form.FieldSet,  {
 	
 	resetPointSelection: function(){
 		this.coordinatePicker.resetPoint();
+        this.bufferField.reset();
 		this.resetBuffer();
 		this.compositeField.clickToggle.toggle(false);
 	}

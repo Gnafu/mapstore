@@ -258,7 +258,7 @@ gxp.form.BBOXFieldset = Ext.extend(Ext.form.FieldSet,  {
                         //
                         // Reset the previous control
                         //
-                        this.reset();
+                        //this.reset();
 
                         //
                         // Activating the new control

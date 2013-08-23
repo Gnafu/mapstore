@@ -376,6 +376,7 @@ GeoExt.Lang.add("it", {
     
     "gxp.plugins.BBOXQueryForm.prototype": {
         selectionMethodFieldSetComboTitle: "Metodo di Selezione",
+        comboEmptyText: "Seleziona un metodo..",
         comboSelectionMethodLabel: "Selezione",
         comboPolygonSelection: 'Poligono',
         comboCircleSelection: 'Cerchio',

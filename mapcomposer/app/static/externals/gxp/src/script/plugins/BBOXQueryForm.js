@@ -51,6 +51,12 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
      */    
     selectionMethodFieldSetComboTitle: "Set Selection Method",
 	
+    /** api: config[comboEmptyText]
+     * ``String``
+     * Text for empty Combo Selection Method (i18n).
+     */    
+    comboEmptyText: "Select a method..",
+
 	/** api: config[comboSelectionMethodLabel]
      * ``String``
      * Text for Label Combo Selection Method (i18n).
@@ -220,6 +226,7 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
                     mode: 'local',
                     name:'selection_method',
                     forceSelected:true,
+                    emptyText: this.comboEmptyText,
                     allowBlank:false,
                     autoLoad:true,
                     displayField: 'label',
@@ -255,7 +262,8 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
                                 }
                             });
                             
-                            // TODO: document this
+                            // For every enabled tool in the toolbar, toggle the button off (deactivating the tool)
+                            // Then add a listener on 'click' and 'menushow' to reset the BBoxQueryForm to disable all active tools
                             for (var i = 0;i<disabledItems.length;i++){
                                 if(disabledItems[i].toggleGroup){
                                     if(disabledItems[i].scope && disabledItems[i].scope.actions){
@@ -270,16 +278,20 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
 
                                             disabledItems[i].scope.actions[a].on({
                                                 "click": function(evt) {
-                                                    var clearButton = this.output[0].getBottomToolbar().items.items[1];
-                                                    clearButton.handler.call(clearButton.scope, clearButton, Ext.EventObject);
+                                                     if (me.draw) {me.draw.deactivate();};
+                                                     // TODO 'Circle' and 'Poligon' tool have no other visual way to display
+                                                     // their statuses (active, not active), apart from the combobox
+                                                     // The clearValue() is intended to tell user that the tool is not enabled
+                                                     //me.output[0].outputType.clearValue();
+
                                                 },
                                                 "menushow": function(evt) {
                                                     var menuItems = evt.menu.items.items;
                                                     for (var i = 0;i<menuItems.length;i++){
                                                         menuItems[i].enable();
                                                     }
-                                                    var clearButton = this.output[0].getBottomToolbar().items.items[1];
-                                                    clearButton.handler.call(clearButton.scope, clearButton, Ext.EventObject);
+                                                     if (me.draw) {me.draw.deactivate();};
+                                                     //me.output[0].outputType.clearValue();
                                                 },
                                                 scope: this
                                             });

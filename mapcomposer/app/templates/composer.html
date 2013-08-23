@@ -131,6 +131,10 @@
                     }
             })();
 
+            if(Ext.isChrome){
+                OpenLayers.Tile.Image.useBlankTile = false;
+            }
+
             OpenLayers.ImgPath = "externals/openlayers/theme/default/img/";
 			
 			// ////////////////////////////////

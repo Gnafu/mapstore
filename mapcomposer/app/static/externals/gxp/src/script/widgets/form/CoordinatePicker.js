@@ -62,9 +62,9 @@ gxp.widgets.form.CoordinatePicker = Ext.extend(Ext.form.CompositeField,{
      *    used to highlight the clicked point
      *     
      */
-    selectStyle:{
+    defaultSelectStyle:{
         pointRadius: 4, // sized according to type attribute
-        graphicName: "circle",
+        graphicName: "x",
         fillColor: "#0000FF",
         strokeColor: "#0000FF",
         fillOpacity:0.5,
@@ -92,6 +92,8 @@ gxp.widgets.form.CoordinatePicker = Ext.extend(Ext.form.CompositeField,{
         map = this.map;
 		
         var compositeField = this;
+		
+		Ext.applyIf(this.selectStyle, this.defaultSelectStyle);
 		
         //create the click control
         var ClickControl = OpenLayers.Class(OpenLayers.Control, {                
@@ -175,7 +177,7 @@ gxp.widgets.form.CoordinatePicker = Ext.extend(Ext.form.CompositeField,{
 						change: this.updatePoint
 					}
                 }
-            ]
+            ];
         
         return  gxp.widgets.form.CoordinatePicker.superclass.initComponent.apply(this, arguments);
     },

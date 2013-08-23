@@ -170,7 +170,7 @@ gxp.form.BBOXFieldset = Ext.extend(Ext.form.FieldSet,  {
             +" border-style:solid; \n"
             +" border-color: "+this.selectStyle.strokeColor+";"
             +" position: absolute; \n"
-            +" background-color: "+this.selectStyle.handlerFillColor+"; \n"
+            +" background-color: "+this.selectStyle.fillColor+"; \n"
             +" opacity: "+0.5+"; \n"
             +" font-size: 1px; \n"
             +" filter: alpha(opacity="+0.5 * 100+"); \n"

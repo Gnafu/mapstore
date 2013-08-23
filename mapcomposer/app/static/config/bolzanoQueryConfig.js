@@ -275,8 +275,8 @@
 			  "selectStyle":{
 				  "strokeColor": "#FF0000",
 				  "handlerFillColor": "#FFFFFF",
-				  "fillColor": "#FFFFFF",
-				  "fillOpacity":0,
+				  "fillColor": "#ee9900",
+				  "fillOpacity":0.5,
 				  "strokeWidth":2
 			  }	,
 			  "spatialFilterOptions": {	

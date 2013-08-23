@@ -117,12 +117,25 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
      */ 
 	errorBufferText: "The selected buffer is invalid!",
 	
+	/** private
+	 *  OpenLayers.Style
+	 *  default style for temporary layers
+	 */
+	style : null,
+	
 	useDefinedExtent: false,
     
     init: function(target) {
         
         var me = this;
-      
+        
+        if(!this.style){
+            this.style = new OpenLayers.Style();
+            if(this.outputConfig){
+                Ext.apply(this.style.defaultStyle, this.outputConfig.selectStyle);
+            }
+        }
+        
         var confbbox = Ext.apply({
             map: target.mapPanel.map,
             checkboxToggle: false,
@@ -242,6 +255,7 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
                                 }
                             });
                             
+                            // TODO: document this
                             for (var i = 0;i<disabledItems.length;i++){
                                 if(disabledItems[i].toggleGroup){
                                     if(disabledItems[i].scope && disabledItems[i].scope.actions){
@@ -286,7 +300,14 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
 								
 								queryForm.bufferFieldset.disable();
                                 
-                                me.drawings = new OpenLayers.Layer.Vector({},{displayInLayerSwitcher:false});
+                                me.drawings = new OpenLayers.Layer.Vector(
+                                                                {},
+                                                                {
+                                                                    displayInLayerSwitcher:false,
+                                                                    styleMap: new OpenLayers.StyleMap({
+                                                                                    "default": this.style
+                                                                                    })
+                                                                });
                                 
                                 this.target.mapPanel.map.addLayer(me.drawings);
                                 var polyOptions = {sides: 100};
@@ -330,7 +351,15 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
 								
                                 queryForm.bufferFieldset.disable();
                                 
-                                me.drawings = new OpenLayers.Layer.Vector({},{displayInLayerSwitcher:false});
+                                me.drawings = new OpenLayers.Layer.Vector(
+                                                                {},
+                                                                {
+                                                                    displayInLayerSwitcher:false,
+                                                                    styleMap: new OpenLayers.StyleMap({
+                                                                                    "default": this.style
+                                                                                    })
+                                                                });
+
                                 this.target.mapPanel.map.addLayer(me.drawings);
                                 
                                 me.draw = new OpenLayers.Control.DrawFeature(

@@ -363,6 +363,28 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
 								
                                 queryForm.bufferFieldset.disable();
                                 
+                                // Disable current active tool
+                                var currently_pressed = Ext.ButtonToggleMgr.getPressed(me.bufferFieldSet.toggleGroup);
+                                if(currently_pressed){
+                                    currently_pressed.toggle(false);
+                                    currently_pressed.on( "menushow"
+                                                    ,function(evt) {
+                                                        var menuItems = evt.menu.items.items;
+                                                        for (var i = 0;i<menuItems.length;i++){
+                                                            menuItems[i].enable();
+                                                        }
+                                                         if (this.draw) {this.draw.deactivate();};
+                                                    },
+                                                    me,
+                                                    {single : true});
+                                    currently_pressed.on("click",
+                                                    function(evt) {
+                                                         if (this.draw) {this.draw.deactivate();};
+                                                    },
+                                                    me,
+                                                    {single : true}
+                                                );
+                                }
                                 me.drawings = new OpenLayers.Layer.Vector(
                                                                 {},
                                                                 {
@@ -378,6 +400,11 @@ gxp.plugins.BBOXQueryForm = Ext.extend(gxp.plugins.QueryForm, {
                                     me.drawings,
                                     OpenLayers.Handler.Polygon
                                 );
+                                
+                                // disable pan while drawing
+                                // TODO: make it configurable
+                                me.draw.handler.stopDown = true;
+                                me.draw.handler.stopUp = true;
                                 
                                 this.target.mapPanel.map.addControl(me.draw);
                                 me.draw.activate();

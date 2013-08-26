@@ -187,12 +187,12 @@ gxp.widgets.form.CoordinatePicker = Ext.extend(Ext.form.CompositeField,{
         //get lon lat
         var map = this.map;
         var lonlat = map.getLonLatFromPixel(e.xy);
-        //update point on the map
-        this.updateMapPoint(lonlat);
         //
         lonlat.transform(map.getProjectionObject(),new OpenLayers.Projection(this.outputSRS));
         this.latitudeField.setValue(lonlat.lat);
         this.longitudeField.setValue(lonlat.lon);
+        //update point on the map
+        this.updateMapPoint(lonlat);
 		this.clickToggle.toggle();      
     },
 	
@@ -208,19 +208,31 @@ gxp.widgets.form.CoordinatePicker = Ext.extend(Ext.form.CompositeField,{
 		}
     },
 	
-	resetPoint:function(){
-		if(this.selectStyle){
-			var layer = map.getLayersByName(this.selectLayerName)[0];
+	/**
+	 * Remove the point displayed in the map 
+	 */
+    resetMapPoint:function(){
+        if(this.selectStyle){
+            var layer = map.getLayersByName(this.selectLayerName)[0];
             if(layer){
                 map.removeLayer(layer);
             }
-		}
-		
-		this.latitudeField.reset();
+        }
+
+        this.fireEvent("reset");
+    },
+
+    /**
+     * Reset the fields and remove the point from the map
+     */
+    resetPoint:function(){
+        this.resetMapPoint();
+        
+        this.latitudeField.reset();
         this.longitudeField.reset();
-		
-		this.fireEvent("reset");
-	},
+        
+        this.fireEvent("reset");
+    },
 	
 	toggleButton: function(toggle){
 		this.clickToggle.toggle(toggle);
@@ -229,7 +241,7 @@ gxp.widgets.form.CoordinatePicker = Ext.extend(Ext.form.CompositeField,{
 	/** private point update */
     updateMapPoint:function(lonlat){
         if(this.selectStyle){
-            this.resetPoint();
+            this.resetMapPoint();
             var style = new OpenLayers.Style(this.selectStyle);
             this.layer = new OpenLayers.Layer.Vector(this.selectLayerName,{
                 styleMap: style                

@@ -62,6 +62,22 @@ gxp.widgets.form.CoordinatePicker = Ext.extend(Ext.form.CompositeField,{
      *    used to highlight the clicked point
      *     
      */
+    selectStyle:{
+        pointRadius: 4,
+        graphicName: "circle",
+        fillColor: "#0000FF",
+        strokeColor: "#0000FF",
+        fillOpacity:0.5,
+        strokeWidth:2
+    },
+
+    /**
+     * Private 
+     * Property: defaultSelectStyle
+     * {Object} Configuration of OpenLayer.Style.
+     * used to fill "selectStyle" missing fields
+     *     
+     */
     defaultSelectStyle:{
         pointRadius: 4, // sized according to type attribute
         graphicName: "cross",

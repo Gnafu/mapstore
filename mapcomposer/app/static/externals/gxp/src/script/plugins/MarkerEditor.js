@@ -243,16 +243,7 @@ gxp.plugins.MarkerEditor = Ext.extend(gxp.plugins.Tool, {
                                 xtype:'gxp_coordinate_picker',
                                 map: this.target.mapPanel.map,
                                 toggleGroup:this.toggleGroup,
-								ref:'coordinatePicker',
-								selectStyle:{
-                                    pointRadius: 4,
-                                    graphicName: "circle",
-                                    fillColor: "#0000FF",
-                                    strokeColor: "#0000FF",
-                                    fillOpacity:0.5,
-                                    strokeWidth:2
-                                }
-                            
+								ref:'coordinatePicker'                            
                         },{
                             xtype:'htmleditor',
                             name:'html',

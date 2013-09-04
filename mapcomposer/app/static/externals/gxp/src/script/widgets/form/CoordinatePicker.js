@@ -151,7 +151,7 @@ gxp.widgets.form.CoordinatePicker = Ext.extend(Ext.form.CompositeField,{
                       toggle: function(button, pressed) {  
                          if(pressed){
                               this.selectLonLat.activate();
-                              this.updatePoint();                            
+                              //this.updatePoint();                            
                           }else{
                               this.selectLonLat.deactivate();
                              
@@ -182,15 +182,16 @@ gxp.widgets.form.CoordinatePicker = Ext.extend(Ext.form.CompositeField,{
         return  gxp.widgets.form.CoordinatePicker.superclass.initComponent.apply(this, arguments);
     },
 	
-	/** event handler for the button click */
+	/** event handler for the ClickControl click event*/
     clickHandler: function(e){
         //get lon lat
         var map = this.map;
         var lonlat = map.getLonLatFromPixel(e.xy);
         //
-        lonlat.transform(map.getProjectionObject(),new OpenLayers.Projection(this.outputSRS));
-        this.latitudeField.setValue(lonlat.lat);
-        this.longitudeField.setValue(lonlat.lon);
+        var geoJsonPoint = lonlat.clone();
+        geoJsonPoint.transform(map.getProjectionObject(),new OpenLayers.Projection(this.outputSRS));
+        this.latitudeField.setValue(geoJsonPoint.lat);
+        this.longitudeField.setValue(geoJsonPoint.lon);
         //update point on the map
         this.updateMapPoint(lonlat);
 		this.clickToggle.toggle();      

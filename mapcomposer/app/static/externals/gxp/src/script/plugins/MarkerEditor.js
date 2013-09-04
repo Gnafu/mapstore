@@ -243,7 +243,15 @@ gxp.plugins.MarkerEditor = Ext.extend(gxp.plugins.Tool, {
                                 xtype:'gxp_coordinate_picker',
                                 map: this.target.mapPanel.map,
                                 toggleGroup:this.toggleGroup,
-								ref:'coordinatePicker'
+								ref:'coordinatePicker',
+								selectStyle:{
+                                    pointRadius: 4,
+                                    graphicName: "circle",
+                                    fillColor: "#0000FF",
+                                    strokeColor: "#0000FF",
+                                    fillOpacity:0.5,
+                                    strokeWidth:2
+                                }
                             
                         },{
                             xtype:'htmleditor',
@@ -291,7 +299,7 @@ gxp.plugins.MarkerEditor = Ext.extend(gxp.plugins.Tool, {
 							
 						},
                         handler: function(){
-							var formPanel = this.refOwner
+							var formPanel = this.refOwner;
                             var form = formPanel.getForm();
 							if( !formPanel.coordinatePicker.isValid() ) return;
                             var vals = form.getValues();
@@ -386,11 +394,11 @@ gxp.plugins.MarkerEditor = Ext.extend(gxp.plugins.Tool, {
 										icons:vals.get('icons')
                                     }
                                 
-                                }
+                                };
                                 features.push(obj);
                             }
                             
-                            var jsonObj = { type: "FeatureCollection", features: features}
+                            var jsonObj = { type: "FeatureCollection", features: features};
                             return  Ext.util.JSON.encode(jsonObj);
                             
                         },
@@ -413,8 +421,8 @@ gxp.plugins.MarkerEditor = Ext.extend(gxp.plugins.Tool, {
                             ]
                         ),
                         listeners:{
-                            add: function(store){store.updateIframe(store.getGeoJson())},
-                            remove: function(store){store.updateIframe(store.getGeoJson())},
+                            add: function(store){store.updateIframe(store.getGeoJson());},
+                            remove: function(store){store.updateIframe(store.getGeoJson());},
                             clear: function(store){store.updateIframe(store.getGeoJson());controlPanel.form.resetAll();},
                             load: function(store){store.initIframe(store.getGeoJson());controlPanel.form.resetAll();}
                         }
@@ -478,7 +486,7 @@ gxp.plugins.MarkerEditor = Ext.extend(gxp.plugins.Tool, {
                                         var store= grid.getStore();
                                         var rec = store.getAt(rowIndex);
 										if(sel){
-											if(sel.id == rec.id){controlPanel.form.resetAll()}
+											if(sel.id == rec.id){controlPanel.form.resetAll();}
 											
 											
 										}

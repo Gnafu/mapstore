@@ -347,6 +347,8 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
 	
 	requiredFieldsLabel: "* These fields are mandatory for the download process.",
 	
+	infoBtnTooltip: "Show info about this CRS",
+	
 	readOnlyLayerSelection: false,
 	
     /** private: method[constructor]
@@ -858,7 +860,6 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
 					ref: "../../layerCombo",
 					fieldLabel: this.dselLayer,
 					lazyInit: true,
-					labelStyle: 'width: 110px;',
 					width: 140,
 					mode: 'local',
 					triggerAction: 'all',
@@ -969,7 +970,6 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
 					xtype: "combo",
 					ref: "../../formatCombo",
 					fieldLabel: this.dselFormat,
-					labelStyle: 'width: 110px;',
 					width: 140,
 				    mode: 'local',
 					triggerAction: 'all',
@@ -992,8 +992,7 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
         this.placeSearch = new gxp.GazetteerCombobox(Ext.apply({
             xtype: 'gazetteercombobox',
             fieldLabel: this.placeSearchLabel,
-			labelStyle: 'width: 110px;',
-            hidden: true,
+			hidden: true,
             disabled: true,
 			width: 140,
             ref: "../../placeSearch",
@@ -1037,30 +1036,58 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
 				}
 			},
 			items: [
-				{
-					xtype: "combo",
-					ref: "../../crsCombo",
-					fieldLabel: this.dselCRS,
-					disabled: false,
-					labelStyle: 'width: 110px;',
-					width: 140,
-					mode: 'local',
-					triggerAction: 'all',
-					store: this.crsStore,
-					displayField: 'name',
-					valueField: 'name',
-					emptyText: this.initialText,
-					editable: true,
-					resizable: true,
-					typeAhead: true,
-					typeAheadDelay: 3,
-					allowBlank: true
-				}, {
+       			{       
+                    xtype: "compositefield",
+                    ref: "../../crsFieldset",
+                    labelWidth: 110,
+                    items: [
+                        {
+                            xtype: "combo",
+                            ref: "crsCombo",
+                            fieldLabel: this.dselCRS,
+                            disabled: false,
+                            width: 140,
+                            mode: 'local',
+                            triggerAction: 'all',
+                            store: this.crsStore,
+                            displayField: 'name',
+                            valueField: 'name',
+                            emptyText: this.initialText,
+                            editable: true,
+                            resizable: true,
+                            typeAhead: true,
+                            typeAheadDelay: 3,
+                            allowBlank: true,
+                            listeners : {
+                                select:{
+                                    scope :this,
+                                    fn :function(combo){
+                                        if(combo.isValid() && combo.getValue() != "Native")
+                                            this.formPanel.crsFieldset.infoBtn.enable();
+                                        else
+                                            this.formPanel.crsFieldset.infoBtn.disable();
+                                    }
+                                }
+                            }
+                        }, {
+                            xtype: 'button',
+                            ref:"infoBtn",
+                            tooltip: this.infoBtnTooltip,
+                            iconCls: "gxp-icon-getfeatureinfo",
+                            disabled : true,
+                            width: 23,
+                            scope: this,
+                            handler: function(){
+                               var epsg = this.formPanel.crsFieldset.crsCombo.getValue().replace("EPSG:", "");
+                               window.open('http://www.spatialreference.org/ref/epsg/'+epsg+'/', '_blank');
+                            }
+                        }
+                    ]
+                },{
 					xtype: 'combo',
 					ref: "../../selectionMode",
 					fieldLabel: this.settingSel,
-					labelStyle: 'width: 110px;',
-                    disabled: true,
+					disabled: true,
 					width: 140,
 					allowBlank: true,
                     editable: false,
@@ -1088,7 +1115,6 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
 					xtype: "numberfield",
 					ref: "../../bufferField",
 					fieldLabel: this.bufferFieldLabel,
-					labelStyle: 'width: 110px;',
 					width: 140,
                     enableKeyEvents: true,
                     disabled: true,
@@ -1130,8 +1156,7 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
 					ref: "../../cutMode",
                     disabled: true,
 					fieldLabel: this.settingCut,
-					labelStyle: 'width: 110px;',
-                    valueField: 'value',
+					valueField: 'value',
                     displayField: 'text',
                     triggerAction: 'all',
                     mode: 'local',
@@ -1172,8 +1197,7 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
                     allowBlank: false,
                     ref: "../../emailField",
                     fieldLabel: this.emailFieldLabel,
-					labelStyle: 'width: 110px;',
-                    width: 140
+					width: 140
                 }
             ]
         });
@@ -1370,12 +1394,13 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
         });
 		
 		this.executionIdField = new Ext.form.CompositeField({		
-			width: 167,
+			//width: 167,
 			labelStyle: 'width: 120px;',
 			items: [
                 {
                     xtype: 'textfield',
 					ref: "idField",	
+					width: 140,
 					fieldLabel: this.executionIdField,
                     emptyText: this.executionIdFieldEmptyText,
                     flex: 1
@@ -1417,7 +1442,7 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
 		var downloadForm = new Ext.form.FormPanel({
 			title: this.tabTitle,
 			region: 'center',
-			labelWidth: 80,
+			labelWidth: 110,
 			monitorValid: true,
 			items:[
 				{
@@ -1460,7 +1485,7 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
 							icon :'theme/app/img/download.png',
 							handler: function(){
 								var layerCombo = downloadForm.layerCombo.isValid();
-								var crsCombo = downloadForm.crsCombo.isValid();
+								var crsCombo = downloadForm.crsFieldset.crsCombo.isValid();
 								var formatCombo = downloadForm.formatCombo.isValid();
 								var selectionMode = downloadForm.selectionMode.isValid();
 								var bufferField = downloadForm.bufferField.isValid();
@@ -1564,7 +1589,7 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
             // ////////////////////////////////////////////////
             if(this.spatialSettings.checkbox.getAttribute('checked') && 
                 (this.formPanel.formatCombo.getValue() == "application/vnd.google-earth.kml+xml" ||  this.formPanel.formatCombo.getValue() == "application/gpx+xml") &&
-                this.formPanel.crsCombo.getValue() != "EPSG:4326" ) {
+                this.formPanel.crsFieldset.crsCombo.getValue() != "EPSG:4326" ) {
                 Ext.Msg.show({
                     title: this.msgWrongCRSTitle,
                     msg: this.msgWrongCRSMsg,
@@ -1690,7 +1715,7 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
         
         var layer = dform.layerCombo.getValue();
         
-		var crs = dform.crsCombo.getValue();
+		var crs = dform.crsFieldset.crsCombo.getValue();
 		crs = crs.indexOf("EPSG:") != -1 ? crs : "";
 		
         var format = dform.formatCombo.getValue();

@@ -273,7 +273,7 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
     
     msgWrongCRSTitle: "Projection Mismatch",
     
-    msgWrongCRSMsg: "The selected projection will be overridden by the Output Format specifications. Continue anyway?",
+    msgWrongCRSMsg: "The selected projection will be overridden by the Output Format specifications (EPSG:4326). Continue anyway?",
     
     msgTooltipPending: 'Pending',
 	
@@ -1523,6 +1523,9 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
 								
 								var requestFunction = function() {
 									var asreq = this.getAsyncRequest(downloadForm);
+									
+									this.showMask();
+									
 									this.wpsClusterManager.execute('gs:Download', asreq, this.executeCallback, this);
 									
 									// //////////////////////////////////////////////////
@@ -1653,6 +1656,7 @@ gxp.plugins.DownloadPanel = Ext.extend(gxp.plugins.Tool, {
      * private: method[executeCallback]
      */        
     executeCallback: function(instanceOrRawData){
+        this.hideMask();
 		var executeResponse = instanceOrRawData.executeResponse;
 		
 		if(executeResponse){

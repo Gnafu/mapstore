@@ -273,28 +273,100 @@ MSMLogin = Ext.extend(Ext.FormPanel, {
     */ 
     showLoginForm: function() {
         var form = this.getForm();
-        this.win = new Ext.Window({
-            title: this.loginFormTitle,
-            iconCls: 'user',
-            layout: "fit",
-            width: 275,
-			closeAction: 'hide',
-            closable: !this.forceLogin,
-            draggable: !this.forceLogin,
-            height: 130,
-            plain: true,
-            border: false,
-            modal: true,
-            items: [this],
-            listeners: {
-                afterRender: function(){
-                    form.clearInvalid();
-                },
-                hide: function(){
-                    form.reset();
+        var me = this;
+        if(!this.win){
+            this.win = new Ext.Window({
+                title: this.loginFormTitle,
+                iconCls: 'user',
+                layout: "border",
+                width: 275,
+                closeAction: 'hide',
+                closable: !this.forceLogin,
+                draggable: !this.forceLogin,
+                height: 170,
+                plain: true,
+                border: false,
+                modal: true,
+                items: [
+                
+                    {
+                        xtype: "panel",
+                        height: 40,
+                        border:false,
+                        region:"north",
+                        html: 
+                        /*
+                                "<span id=\"googlesigninbutton\">"+
+                                  "<span "+
+                                    " class=\"g-signin\""+
+                                    " data-callback=\"stoca\""+
+                                    " data-clientid=\"461544306225-g7g6fbfs351els9g9f8pk69qoaekf4fe.apps.googleusercontent.com\""+
+                                    " data-cookiepolicy=\"none\""+
+                                    " data-requestvisibleactions=\"http://schemas.google.com/AddActivity\""+
+                                    " data-scope=\"https://www.googleapis.com/auth/plus.login\">"+
+                                  "</span>"+
+                              "</span>"+
+                              */
+                              "<span><a href=\"http://localhost:8083/opensdi2-manager/mvc/oauth/login/google?returnUrl=http://localhost:8081/manager\">LOGIN WITH GOOGLE</a></span>"
+                    },
+                    {
+                        border:false,
+                        id: "stocaLogin",
+                        region:"center",
+                        items:[this]
+                    }
+                ],
+                listeners: {
+                    afterRender: function(){
+                        form.clearInvalid();
+                        if(typeof stoca === 'undefined'){
+                            stoca = function(obj){
+                                console.log(obj);
+                                
+                                if(obj && obj.status){
+                                    
+                                    if(obj.status.signed_in){
+                                        me.win.hide();
+                                        me.getForm().reset();
+                                        
+                                        var user = Ext.util.JSON.decode(response.responseText);
+                                        
+                                        me.showLogout(user.User.name);
+                                        // save auth info
+                                        me.token = auth;
+                                        if (user.User) {
+                                            me.userid = user.User.id;//TODO geostore don't return user id! in details request
+                                            me.username = user.User.name;
+                                            me.role = user.User.role;
+                                        }
+                                        me.fireEvent("login", me.username, auth, user.User);
+                                    }
+                                }
+                                
+                            }
+                        }
+                        this.doLayout();
+                        /*g
+                        api.signin.go("googlesigninbutton");
+                        
+                        gapi.signin.render(
+                            "googlesigninbutton",
+                            {
+                                "clientid": "461544306225-g7g6fbfs351els9g9f8pk69qoaekf4fe.apps.googleusercontent.com",
+                                "cookiepolicy" : "none",
+                                "requestvisibleactions": 'http://schemas.google.com/AddActivity http://schemas.google.com/CommentActivity',
+                                "callback" : "stoca"
+                            }
+                        );
+                        */
+                        
+                    },
+                    hide: function(){
+                        form.reset();
+                    }
                 }
-            }
-        });
+            });
+        }
         this.win.show();        
     },
     
@@ -359,13 +431,19 @@ MSMLogin = Ext.extend(Ext.FormPanel, {
      * api: method[submitLogin]
      * Submits the login.
      */ 
-    submitLogin: function () {
-        var mask = new Ext.LoadMask(this.getEl(),{msg:this.loginWaitMessage});
-        var form = this.getForm();
-        var fields = form.getValues();
-        var pass = fields.loginPassword;
-        var user = fields.loginUsername;
-        var auth= 'Basic ' + Base64.encode(user+':'+pass);
+    submitLogin: function (button, event, access_token) {
+        var mask = this.getEl() ? new Ext.LoadMask(this.getEl(),{msg:this.loginWaitMessage}) : new Ext.LoadMask(Ext.getBody(),{msg: "Please wait.."});
+        
+        if(access_token){
+            var auth= 'Bearer ' + access_token;
+        }else{
+            var form = this.getForm();
+            var fields = form.getValues();
+            var pass = fields.loginPassword;
+            var user = fields.loginUsername;
+            var auth= 'Basic ' + Base64.encode(user+':'+pass);
+        }
+        
         mask.show();
         Ext.Ajax.request({
             method: 'GET',
@@ -377,7 +455,9 @@ MSMLogin = Ext.extend(Ext.FormPanel, {
             },
             success: function(response, form, action) {  
                 mask.hide();
-                this.win.hide();
+                if(this.win){
+                    this.win.hide();
+                }
                 this.getForm().reset();
                 
                 var user = Ext.util.JSON.decode(response.responseText);
@@ -401,10 +481,12 @@ MSMLogin = Ext.extend(Ext.FormPanel, {
                     animEl: 'mb4',
                     icon: Ext.MessageBox.WARNING
                 });
-                this.form.markInvalid({
-                    "loginUsername": this.loginErrorText,
-                    "loginPassword": this.loginErrorText
-                });
+                if(this.form){
+                    this.form.markInvalid({
+                        "loginUsername": this.loginErrorText,
+                        "loginPassword": this.loginErrorText
+                    });
+                }
             }
         });
     },

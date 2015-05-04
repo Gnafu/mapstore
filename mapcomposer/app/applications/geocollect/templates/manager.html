@@ -12,6 +12,10 @@
     <script type="text/javascript" src="externals/ext/adapter/ext/ext-base.js"></script>
     <script type="text/javascript" src="externals/ext/ext-all.js"></script>
     
+    <!-- Google SignIn 
+    <script src="https://apis.google.com/js/client:platform.js" async defer></script>
+    -->
+    
     <!-- OpenLayers resources -->
     <link rel="stylesheet" type="text/css" href="externals/openlayers/theme/default/style.css">
     <script type="text/javascript" src="script/OpenLayers.js"></script>
@@ -93,6 +97,11 @@
                     case "config":
                                     customConfigName = param[1];
                                     break;
+                                    
+                    case "token":
+                                    token = param[1];
+                                    break;
+                                   
                     default : 
                                     //mapIdentifier = -1;
                 }
@@ -153,6 +162,16 @@
                     
                 }
             });
+            
+            if(typeof token !== 'undefined'){
+                console.log(token);
+                console.log(decodeURIComponent(token));
+                var access_token_obj = Ext.util.JSON.decode(decodeURIComponent(token));;
+                console.log(access_token_obj);
+                console.log(access_token_obj.access_token);
+                manager.currentTools["loginTool"].login.submitLogin.call(manager.currentTools["loginTool"].login, null, null, access_token_obj.access_token);
+            }
+            
         };
         
         Ext.Ajax.request({
@@ -214,6 +233,15 @@
     </head>
     <body>
         <% render content %>
-		<div id="wrap" style="visibility:hidden"></div>
+        <div id="wrap" style="visibility:hidden"></div>
+        <!-- Google SignIn -->
+        <script type="text/javascript">
+          (function() {
+           var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+           po.src = 'https://apis.google.com/js/client:plusone.js';
+           po.parsetags = 'explicit';
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+         })();
+        </script>
     </body>
 </html>

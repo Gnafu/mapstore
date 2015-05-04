@@ -50,7 +50,14 @@
         "actionTarget":{
           "target": "north.tbar",
           "index": 3
-        }
+        },
+        "windowHeight":230,
+        "windowWidth": 390,
+        "addPanels":[{
+            "border":false,
+            "region":"north",
+            "html":"<div style=\"color: #666;text-align: center;\"><span id=\"signinButton\"><span class=\"g-signin\" data-callback=\"signinCallback\" data-clientid=\"CLIENT_ID\" data-cookiepolicy=\"single_host_origin\" data-requestvisibleactions=\"http://schema.org/AddAction\" data-scope=\"https://www.googleapis.com/auth/plus.login\"></span></span></div>"
+        }]
     },{
         "ptype": "mxp_languageselector",
         "actionTarget":{
@@ -58,7 +65,7 @@
           "index": 7
         }
     }],
-   "adminTools":[{
+    "adminTools":[{
         "ptype": "mxp_mapmanager",
         "loginManager": "loginTool",
         "actionTarget": null
@@ -111,31 +118,30 @@
     },{ 
         "ptype": "mxp_geostore_mission_resource_editor",
         "category": "GEOCOLLECT",
-         "loginManager": "loginTool",
+        "loginManager": "loginTool",
         "buttonText": "Mission Configuration",
         "actionTarget":{
-         "target": "north.tbar",
-         "index": 6
+            "target": "north.tbar",
+            "index": 6
         },
-         "resourceEditor":{
-		"xtype":"mxp_gc_resource_editor",
-		"ref":"/missionResEdit",
-		"authParam":"authkey"
-		}
+        "resourceEditor":{
+            "xtype":"mxp_gc_resource_editor",
+            "ref":"/missionResEdit",
+            "authParam":"authkey"
+        }
     },{ 
         "ptype": "mxp_servicemanager",
         "notDuplicateOutputs":true,
         "actionTarget":{
-             "target": "north.tbar",
-             "index": 4
-            }
-
+            "target": "north.tbar",
+            "index": 4
+        }
     },{
         "ptype": "mxp_login",
         "pluginId": "loginTool",
         "actionTarget":{
-          "target": "north.tbar",
-          "index": 10
+            "target": "north.tbar",
+            "index": 10
         }
     },{
         "ptype": "mxp_languageselector",
@@ -169,12 +175,11 @@
           "index": 8
         }
     }],
-   "embedLink": {
+    "embedLink": {
 		"embeddedTemplateName": "viewer",
 		"showDirectURL": true,
         "showQRCode":true,
         "qrCodeSize":128,
         "appDownloadUrl":"http://demo.geo-solutions.it/share/mapstoremobile/MapStoreMobile.apk"
-
 	}
 }

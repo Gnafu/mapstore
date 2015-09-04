@@ -977,6 +977,7 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
                             });
                         }
                    }
+                   if (sourceCount==0)this.actions[0].enable();
 
                }
            },

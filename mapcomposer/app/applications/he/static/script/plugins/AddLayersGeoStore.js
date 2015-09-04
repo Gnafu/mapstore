@@ -951,6 +951,7 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
            success: function(response, opts){
                var layersSourceList= Ext.util.JSON.decode(response.responseText).ResourceList;
                var resources=[];
+
                if(layersSourceList && layersSourceList.Resource){
                    if(layersSourceList.Resource instanceof Array)resources=layersSourceList.Resource;
                     else resources.push(layersSourceList.Resource);
@@ -977,9 +978,9 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
                             });
                         }
                    }
-                   if (sourceCount==0)this.actions[0].enable();
 
-               }
+
+               }else this.actions[0].enable();
            },
            failure:  function(response, opts){
                 Ext.Msg.show({

@@ -1172,30 +1172,43 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
               });
         }
         else{
-            var xml="<Category><name>LAYERS_SOURCE</name></Category>";
-                Ext.Ajax.request({
-                   url: this.target.geoStoreBaseURL+'categories/',
-                   method: 'POST',
-                   headers:{
-                      'Content-Type' : 'text/xml',
-                      'Accept' : 'application/json, text/plain, text/xml',
-                      'Authorization' : this.getAuth()
-                   },
-                   params:xml,
-                   scope: this,
-                    success: function(response, opts){
-                    this.geostoreSource=true;
-                    this.createLayerSourceCategory();
-                   },
-                   failure:  function(response, opts){
-                      Ext.Msg.show({
-                         title: "Add Layers Plugin",
-                         msg: "GeoStore resources disabled error:"+this.getErrorMsg(response),
-                         buttons: Ext.Msg.OK,
-                         icon: Ext.MessageBox.ERROR
-                      });
-                   }
-                }); 
+
+            Ext.Msg.show({
+                       title: "Add Layers Plugin",
+                       msg: "Application is creating  GeoStore's resource LAYERS_SOURCE",
+                       buttons: Ext.Msg.OK,
+                       fn: function(){
+                         var xml="<Category><name>LAYERS_SOURCE</name></Category>";
+                         Ext.Ajax.request({
+                            url: this.target.geoStoreBaseURL+'categories/',
+                            method: 'POST',
+                            headers:{
+                                'Content-Type' : 'text/xml',
+                                'Accept' : 'application/json, text/plain, text/xml',
+                                'Authorization' : this.getAuth()
+                            },
+                            params:xml,
+                            scope: this,
+                            success: function(response, opts){
+                                this.geostoreSource=true;
+                                this.actions[0].enable();
+                            },
+                            failure:  function(response, opts){
+                                Ext.Msg.show({
+                                title: "Add Layers Plugin",
+                                msg: "GeoStore resources disabled error:"+this.getErrorMsg(response),
+                                buttons: Ext.Msg.OK,
+                                icon: Ext.MessageBox.ERROR
+                                });
+                             }
+                        }); 
+                    },
+                       icon: Ext.MessageBox.QUESTION,
+                       scope: this
+                    });
+
+
+           
             }
     },
     /** private: method[checkLayerSourceCategory]

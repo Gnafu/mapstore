@@ -257,21 +257,50 @@ div#homelogos ul li a:hover {
     cursor:pointer;
 }
 
+/** ORIG
 .x-layout-collapsed.x-layout-collapsed-north, .x-layout-collapsed.x-layout-collapsed-south{
 	position:absolute;
     top:0;
     left:0;
     height:20px !important;
 }
+** ORIG **/
 
-.x-layout-collapsed.x-layout-collapsed-east, .x-layout-collapsed.x-layout-collapsed-west{
+.x-layout-collapsed.x-layout-collapsed-north{
+    position:absolute;
+    top:0;
+    left:0;
+    height:20px !important;
+    background-image: url(img/collapsed-north.png);
+    background-repeat: no-repeat;
+    background-position: right;    
+}
+
+.x-layout-collapsed.x-layout-collapsed-south{
+    position:absolute;
+    top:0;
+    left:0;
+    height:20px !important;
+    background-image: url(img/collapsed-south.png);
+    background-repeat: no-repeat;
+    background-position: right;    
+}
+
+.x-layout-collapsed.x-layout-collapsed-east{
 	position:absolute;
     top:0;
     left:0;
     width:20px !important;
-	background-image: url(img/query-panel-collapsed.png);
+	  background-image: url(img/query-panel-collapsed.png);
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.x-layout-collapsed.x-layout-collapsed-west{
+	position:absolute;
+    top:0;
+    left:0;
+    width:20px !important;
 }
 
 .x-layout-collapsed-west .x-layout-collapsed-tools, .x-layout-collapsed-east .x-layout-collapsed-tools{

@@ -227,6 +227,26 @@
         "loadingProgress": true,
         "useCapabilities": true
 		},
+		"musei": {
+	    "ptype": "gxp_geojsonsource",
+  	  "urlSource": "http://vm-osotp.csi.it/musei/get_musei.php",
+  	  "title": "Musei"
+		},
+		"hotel": {
+	    "ptype": "gxp_geojsonsource",
+  	  "urlSource": "http://vm-osotp.csi.it/hotel/get_hotel.php",
+  	  "title": "Hotel"
+		},
+		"beni_arch": {
+	    "ptype": "gxp_geojsonsource",
+  	  "urlSource": "http://vm-osotp.csi.it/beni_arch/get_beni.php",
+  	  "title": "Berni architettonici"
+		},
+		"eventi": {
+	    "ptype": "gxp_geojsonsource",
+  	  "urlSource": "http://vm-osotp.csi.it/eventi/get_eventi_fix_param.php",
+  	  "title": "Eventi"
+		},
 		"sfondoColori": { 
 			  "ptype": "gxp_wmssource",
         "url": "http://geomap.reteunitaria.piemonte.it/ws/taims/rp-01/taimsbasewms/wms_sfondo_cart_rif",
@@ -270,6 +290,34 @@
 		],
 		"layers": [
 			{
+				"source": "musei",
+				"baseParams": {"p1": "asdfasd", "p2": "12346"},
+				"title": ["Museum","Musei"],
+				"name": "Musei",
+				"group": ["GeoJSON","GeoJSON"],
+		  	"visibility": false
+			},{
+				"source": "hotel",
+				"baseParams": {"p1": "asdfasd", "p2": "12346"},
+				"title": ["Hotels","Hotel"],
+				"name": "Hotel",
+				"group": ["GeoJSON","GeoJSON"],
+		  	"visibility": false
+			},{
+				"source": "beni_arch",
+				"baseParams": {"p1": "asdfasd", "p2": "12346"},
+				"title": ["Architectural","Beni architettonici"],
+				"name": "Beni architettonici",
+				"group": ["GeoJSON","GeoJSON"],
+		  	"visibility": false
+			},{
+				"source": "eventi",
+				"baseParams": {"p1": "asdfasd", "p2": "12346"},
+				"title": ["Events","Eventi"],
+				"name": "Eventi",
+				"group": ["GeoJSON","GeoJSON"],
+		  	"visibility": false
+			},{
 		  	"source": "ngv",
 		  	"title": ["Rail regional graph","Grafo ferroviario regionale"],
 		  	"name": "Ferrovie",
@@ -1040,7 +1088,7 @@
                     "geocoderTypeRecordModel":[
                       {
                           "name":"id",
-                          "mapping":"gid"
+                          "mapping":"properties.gid"
                       },
                       {
                           "name":"name",
@@ -1048,7 +1096,7 @@
                       },
                       {
                           "name":"geometry",
-                          "mapping":"geom"
+                          "mapping":"geometry"
                       }
                     ],
                    "geocoderTypeSortBy":null,

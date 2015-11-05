@@ -843,11 +843,11 @@ gxp.plugins.FeatureGrid = Ext.extend(gxp.plugins.ClickableFeatures, {
         var featureManager = this.target.tools[this.featureManager];
         var grid = this.output[0];
         var protocol = grid.getStore().proxy.protocol;
+        if (this.forceWFSversion){
+            protocol.version = this.forceWFSversion;
+        }
         var allPage = {};
-        
-        
-        
-        
+
         allPage.extent = featureManager.getPagingExtent("getMaxExtent");
         
          //IF WFS_PAGING create filter with fid id

@@ -897,7 +897,8 @@
 		  },
 		  "outputTarget": "south",
 		  "showNumberOfRecords": true,
-		  "exportFormats": ["CSV","shape-zip"]
+		  "exportFormats": ["CSV","shape-zip"],
+          "forceWFSversion" : "1.0.0"
 	    }, {
           "ptype": "gxp_spatialqueryform",
           "featureManager": "featuremanager",

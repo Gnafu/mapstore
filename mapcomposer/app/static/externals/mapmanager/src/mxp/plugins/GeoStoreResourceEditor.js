@@ -36,6 +36,11 @@ mxp.plugins.GeostoreResourceEditor = Ext.extend(mxp.plugins.Tool, {
     /** api: ptype = mxp_geostore_category_manager */
     ptype: "mxp_geostore_resource_editor",
     
+    /** api: config[outputXtype]
+     * xtype of the widget to use. Default to geostore_category_manger
+     */
+    outputXtype: "geostore_category_manger",
+    
     buttonText: "Resource Editor",
     /** api: method[outputItemId]
      * id Of the item. Using the same id means to open the same 
@@ -69,8 +74,6 @@ mxp.plugins.GeostoreResourceEditor = Ext.extend(mxp.plugins.Tool, {
             tooltip: this.tooltipText,
             handler: function() { 
                 this.addOutput(); 
-
-               
             },
             scope: this
         });
@@ -107,7 +110,7 @@ mxp.plugins.GeostoreResourceEditor = Ext.extend(mxp.plugins.Tool, {
         
        
         this.outputConfig = Ext.apply(this.outputConfig,{
-            xtype:'geostore_category_manger',
+            xtype: this.outputXtype,
             category:this.category,
             tpl : this.tpl,
             attributeFields:this.attributeFields,

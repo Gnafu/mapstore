@@ -166,6 +166,10 @@
         "actionTarget":{
              "target": "north.tbar",
              "index": 6
+        },
+        "outputXtype": "user_styles_manager",
+        "outputConfig":{
+            "leftPanelWidth": 450
         }
     }, { 
         "ptype": "mxp_geostore_resource_editor",
